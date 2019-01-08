@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue生命周期</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script>
+</head>
+<body>
+    <div id="demo"></div>
+    <script>
+        var vm = new Vue({
+            el: '#demo',
+            template:"<div>hello world</div>",
+            updated:function(){
+                console.log("updated");
+            },
+            beforeUpdate:function(){
+                console.log("beforeUpdate");
+            },
+            destroy:function(){
+                console.log("destroy");
+            },
+            beforeDestroy:function(){
+                console.log("beforeDestroy");
+            },
+            mounted:function(){
+                console.log(this.$el);
+                console.log("mounted");
+            },
+            beforeMount: function() {
+                console.log(this.$el);
+                console.log("beforeMount");
+            },
+            created:function(){
+                console.log("create");
+            },
+            beforeCreate:function(){
+                console.log("beforeCreate");
+            }
+            
+        })
+
+
+    </script>
+</body>
+</html>

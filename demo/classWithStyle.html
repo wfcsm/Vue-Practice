@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>class和style</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script>
+    <style>
+        .active{
+            color:red;
+        }
+    </style>
+</head>
+<body>
+    <div id="demo1" :class="{active: isActive}"  @click="changeColor">hello world</div>
+    <div id="demo2" :class="[activeClass]"  @click="changeColor">hello world</div>
+    <div id="demo3" :style="styleObject"  @click="changeColor">hello world</div>
+    <script>
+        var vm1 = new Vue({
+            el:"#demo1",
+            data:{
+                isActive:false
+            },
+            methods:{
+                changeColor:function(){
+                    this.isActive = !this.isActive;
+                }
+            }
+        })
+        var vm2 = new Vue({
+            el:"#demo2",
+            data:{
+                activeClass:' '
+            },
+            methods:{
+                changeColor:function(){
+                     this.activeClass = this.activeClass=== ' ' ? 'active': ' '
+                }
+            }
+        })
+        var vm3 = new Vue({
+            el:"#demo3",
+            data:{
+                styleObject:{
+                    color:"black",
+                    
+                }
+            },
+            methods:{
+                changeColor:function(){
+
+                     this.styleObject.color="red";
+                     this.styleObject.fontSize="13px"
+                }
+            }
+        })
+        
+    </script>
+</body>
+</html>

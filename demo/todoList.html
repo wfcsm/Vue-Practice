@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script>
+</head>
+<body>
+  <div id="demo">
+      <input type="text" v-model="inputValue">
+      <button @click="bindBtn">提交</button>
+      <ul>
+          <todo-list v-for="(item, index) in list" :item="item" :index="index" @delete="unbindBtn"></todo-list>
+      </ul>
+  </div>
+  <script>
+      var TodoList = {
+          props:['item','index'],
+          template:'<li @click="unbindBtn">{{ item }}</li>',
+          methods:{
+              unbindBtn:function(){
+                  this.$emit("delete",this.index)
+              }
+          }
+      }
+      var vm = new Vue({
+          el:"#demo",
+          data:{
+              inputValue:'',
+              list:[]
+          },
+          methods:{
+              bindBtn:function(){
+                  this.list.push(this.inputValue);
+                  this.inputValue='';
+              },
+              unbindBtn:function(index){
+                  this.list.splice(index,1);
+              }
+          },
+          components:{
+              TodoList:TodoList
+          }
+         
+      })
+  </script>
+</body>
+</html>

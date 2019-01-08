@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>父子组件传值</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script>
+</head>
+<body>
+    <div id="demo">
+        <row :number="0" @change="changeTotal"> </row>
+        <row :number="0" @change="changeTotal"> </row>
+        <div>{{ total }}</div>
+    </div>
+    <script>
+    var row={
+        props:['number'],
+        data:function(){
+            return {
+                count:this.number
+            }
+        },
+        template:'<div @click="add"> {{ count }} </div>',
+        methods:{
+            add:function(){
+                this.count ++;
+                this.$emit("change",1);
+            }
+        }
+    }
+    var vm = new Vue({
+        el: '#demo',
+        components: {
+            row:row
+            
+        },
+        data:{
+            total:0
+        },
+        methods:{
+            changeTotal:function(number){
+                this.total += number;
+            }
+        }
+    })
+    
+    </script>
+</body>
+</html>

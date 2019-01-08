@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ref在子组件中的使用</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script>
+</head>
+<body>  
+    <div id="demo">
+         <row ref="one" @change="changeNumber"></row>
+         <row ref="two" @change="changeNumber"></row>
+         <div>{{ total }}</div>
+    </div>
+    <script>
+        Vue.component("row",{
+            data:function(){
+                return {
+                    number:0
+                }
+            },
+            template:"<div @click='add'>{{ number }}</div>",
+            methods:{
+                add:function(){
+                    this.number ++ ;
+                    this.$emit("change");
+                }
+            }
+        })
+        var vm = new Vue({
+            el:"#demo",
+            data:{
+                total:0
+            },
+            methods:{
+                changeNumber:function(number){
+                    // console.log(this.$refs.one);
+                    this.total = this.$refs.one.number + this.$refs.two.number;
+                }
+            }
+        })
+    </script>
+</body>
+</html>

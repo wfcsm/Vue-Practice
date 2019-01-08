@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue动画封装</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script>
+</head>
+<body>
+    <div id="demo">
+       <fade :show="show"><div>zyc</div></fade>
+       <fade :show="show"><h1>zyc</h1></fade>
+       <button @click="handleClick">Add</button>
+    </div>
+    <script>
+        Vue.component('fade',{
+            props:{
+                show:Boolean
+            },
+            template:` <transition 
+                            @before-enter="handleBeforeEnter"
+                            @enter="handleEnter">
+                            <slot v-if="show"></slot>
+                       </transition>`,
+            methods: {
+                handleBeforeEnter: function(el){
+                    el.style.color = 'red';
+                },
+                handleEnter: function(el,done){
+                    setTimeout(()=>{
+                        el.style.color = "green";
+                        done()
+
+                    },2000)
+                }
+            }
+        })
+
+
+
+        var vm = new Vue({
+            el:'#demo',
+            data:{
+                show: true
+            },
+            methods: {
+                handleClick: function(){
+                     this.show = !this.show
+                }
+            }
+
+
+        })
+    </script>
+</body>
+</html>
